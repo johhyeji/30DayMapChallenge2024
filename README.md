@@ -6,7 +6,7 @@ Last year's challenge
 We don't know about this year's challenge, but historically, these topics have been frequently given (cf. analysis [here](https://github.com/Rbanism/30DayMapChallenge2024/blob/main/topics/historicalTopics.html)):
 
 
-   | Topic | Number of times in previous challeges
+ N | Topic | Number of times in previous challeges
  --- | --- | ---
  1 | Points | 5
  2 | Lines | 5
