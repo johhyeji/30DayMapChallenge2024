@@ -1,6 +1,6 @@
 # 30DayMapChallenge2024
 
-Last year's challenge
+Example of challenge rules:
 ![#30DayMapChallenge 2023](https://github.com/user-attachments/assets/96b74577-642a-42e5-a191-085259cb6f83)
 
 We don't know about this year's challenge, but historically, these topics have been frequently given (cf. analysis [here](https://github.com/Rbanism/30DayMapChallenge2024/blob/main/topics/historicalTopics.html)):
