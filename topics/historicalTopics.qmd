@@ -1,0 +1,39 @@
+---
+title: " Reocurring topics in the #30DayMapChallenge"
+format: html
+editor: visual
+---
+
+## Data Prep
+
+```{r}
+library(tidyverse)
+
+
+histopics <- read_csv("historical_topics.csv") |>
+  replace_na(list(C2023=0,C2022=0,
+             C2021=0,C2020=0,
+             C2019=0)) |>
+  mutate(total = C2023+C2022+C2021+C2020+C2019) |>
+  arrange(desc(total))
+  
+
+```
+
+## Topics present every time
+
+```{r}
+histopics |>
+  filter(total == 5) |>
+  select(topic)
+```
+
+## Frequently given topics
+
+```{r}
+histopics |>
+  filter(total > 1) |>
+  select(topic, total) |>
+ print(n = Inf)
+
+```
