@@ -6,6 +6,8 @@ This year, we would like to participate to the #30DayMapChallenge2024 as a group
 
 If you would like to join the challenge, you can register your interest to rbanism@tudelft.nl, pick a theme you would like to work on, select a map from the GIS gallery if needed, and be prepared to post your map as part of the #30DayMapChallenge2024_Rbanism.
 
+It can be a great opportunity to work on your mapping skills with R, to experiment with new packages and new functions, and to link with fellow R mappers at TU Delft. We're looking forward to see what Rbanism comes up with as a community, and will host the result on our [website](rbanism.org).
+
 
  N | Topic | Number of times in previous 5 years
  --- | --- | ---
