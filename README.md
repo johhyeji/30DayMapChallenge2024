@@ -9,6 +9,8 @@ If you would like to join the challenge, you can register your interest to [Rban
 It can be a **great opportunity to work on your mapping skills with R, to experiment with new packages and new functions, and to link with fellow mappers at TU Delft**. We're looking forward to see what Rbanism comes up with as a community, and will host the result on our [website](rbanism.org).
 
 
+### 30DayMapChallenge2023
+![](https://github.com/user-attachments/assets/96b74577-642a-42e5-a191-085259cb6f83).
 
 ### Frequency of topics in previous challenges:
 
