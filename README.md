@@ -8,7 +8,8 @@ If you would like to join the challenge, you can:
 - register your interest to [Rbanism](mailto:rbanism@tudelft.nl)
 - pick a theme you would like to work on
 - eventually post your map as part of the #30DayMapChallenge2024_Rbanism.
-If you do not have a map yourself and need inspiration, check out the students' GIS map gallery and let us know if you are interested in reproducing one of the maps from there. We will then pair you up and make the map data available to you.
+
+If you do not have a map yourself and need inspiration, **check out the students' GIS map gallery and let us know in your registration if you are interested in reproducing one of the maps from there**. We will then pair you up and make the map data available to you.
 
 This can be a **great opportunity to work on your mapping skills with R, to experiment with new packages and new functions, and to link with fellow mappers at TU Delft**. We're looking forward to see what Rbanism comes up with as a community, and will host the result on our [website](rbanism.org).
 
