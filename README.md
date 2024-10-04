@@ -2,9 +2,9 @@
 
 The [#30DayMapChallenge](https://30daymapchallenge.com/) is an event which gathers mappers on social media each November since 2019. The challenge is to produce a map for each of the 30 days of November, following the set of themes / topics / constraints set by the organisers. The list of themes for November 2024 is not yet known, but you can see the 2023 challenge [here](https://github.com/Rbanism/30DayMapChallenge2024/blob/main/README.md#30daymapchallenge2023)). Historically, some themes and constraints reoccur. We have identified them [here](https://github.com/Rbanism/30DayMapChallenge2024/blob/main/README.md#frequency-of-topics-in-previous-challenges) using challenges from previous years (cf. [R code here](https://github.com/Rbanism/30DayMapChallenge2024/blob/main/topics/historicalTopics.html)).
 
-This year, we would like to participate to the #30DayMapChallenge2024 as a group: Rbanism. Given our community focus on the programming language R, we add a constraint to the challenge, which is that **each map has to be made using R**. To make it more manageable, we spread the task of producing 30 maps among ourselves, and we provide inspiration and data by including BK bachelor students' GIS production. That way, your task is *only* to reproduce the map using with R.
+This year, we would like to participate to the **#30DayMapChallenge2024** as a group: Rbanism. Given our community focus on the programming language R, we add a constraint to the challenge: **each map has to be made using R**. To make it more manageable, we spread the task of producing 30 maps among ourselves, and we provide inspiration and data by including BK students' GIS production. That way, your task is *only* to reproduce the map using with R.
 
-If you would like to join the challenge, you can 
+If you would like to join the challenge, you can:
 - register your interest to [Rbanism](mailto:rbanism@tudelft.nl)
 - pick a theme you would like to work on
 - eventually post your map as part of the #30DayMapChallenge2024_Rbanism.
