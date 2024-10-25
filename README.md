@@ -6,8 +6,8 @@ The [#30DayMapChallenge](https://30daymapchallenge.com/) is an event which gathe
 This year, we would like to participate in the **#30DayMapChallenge** as a group: Rbanism. Given our community focus on the programming language R, we add a constraint to the challenge: **each map has to be made using R**. To make it more manageable, we spread the task of producing 30 maps among ourselves, and we provide inspiration and data by including BK bachelor, MSc Urbanism and Landscape Architecture students' GIS production. That way, if you lack inspiration, your task is *only* to reproduce the map using with R.
 
 If you would like to join the challenge, you can:
-1. write your name [here](https://docs.google.com/spreadsheets/d/1YEGjTCaki1-eSwPiO6DEi5-kWVbGZF_MznGGCCHTlis/edit?usp=sharing) against one of the map topics 
-2. make your map and send it to [Rbanism](mailto:rbanism@tudelft.nl) *at least one day before the date of your topic*, with appropriate data sources, licence and author credits.
+1. **write your name** [here](https://docs.google.com/spreadsheets/d/1YEGjTCaki1-eSwPiO6DEi5-kWVbGZF_MznGGCCHTlis/edit?usp=sharing) against one of the map topics 
+2. **make your map and send it** to [Rbanism](mailto:rbanism@tudelft.nl) *at least one day before the date of your topic*, with appropriate data sources, licence and author credits.
 3. we'll eventually post your map online as part of the `#30DayMapChallenge2024_Rbanism`.
 
 This can be a **great opportunity to work on your mapping skills with R, to experiment with new packages and new functions, and to link with fellow mappers at TU Delft**. We're looking forward to see what Rbanism comes up with as a community, and will host the result on our [website](rbanism.org).
