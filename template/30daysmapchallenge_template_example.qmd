@@ -378,4 +378,6 @@ ggsave(filename = output_file, plot = tiles_p, device = "png",
 
 # Print a message to confirm export
 cat("Map has been exported as", output_file, "with a 1:1 aspect ratio.\n")
+
+# 
 ```
