@@ -359,4 +359,4 @@ cat("Map has been exported as", output_file, "with a 1:1 aspect ratio.\n")
 
 ## And here is the map!
 
-![Example Map](template/output/example_map.png){#fig:example_map}
+![Example Map](output/example_map.png){#fig:example_map}
