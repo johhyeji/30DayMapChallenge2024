@@ -1,0 +1,196 @@
+---
+title: "#30DMC_15Nov_MyData"
+author: "Clémentine Cottineau-Mugadza"
+date: "2024-10-28"
+format: 
+  html: default
+  pdf: default
+---
+
+## 15 November. Data: my data. 
+
+Map something personal. Map data from your own life—this could be places you’ve traveled, your daily routine, or any other personal touch. 
+
+### 1. Package Installation and Loading
+
+```{r}
+# Define the packages to be used
+packages <- c("tidyverse", "sf", "osmdata",
+              "geojsonR", "httr2", "stringr",
+              "lubridate")
+
+# Function to check if packages are installed and load them
+load_packages <- function(pkgs) {
+  # Check for missing packages
+  missing_pkgs <- pkgs[!(pkgs %in% installed.packages()[, "Package"])]
+  
+  # Install missing packages
+  if (length(missing_pkgs)) {
+    install.packages(missing_pkgs)
+  }
+  
+  # Load all packages
+  lapply(pkgs, library, character.only = TRUE)
+}
+
+# Load the packages
+load_packages(packages)
+
+# Print a message to confirm successful loading
+cat("All specified packages have been loaded successfully!\n")
+
+```
+
+### 2. Import personal data & Paris background
+
+```{r}
+#Parsonal data
+mydata <- read_csv("MyData.csv") %>%
+  mutate(long =  word(word(word(geometry, 2, sep="\\("), 1,  sep="\\)"), 1, sep="\\ "),
+         lat =  word(word(word(geometry, 2, sep="\\("), 1,  sep="\\)"), 2, sep="\\ "),
+         date = dmy(time))
+  
+
+# Direction de l'Urbanisme - Ville de Paris, Opendata Paris, Open Database License (ODbL) https://opendata.paris.fr/explore/dataset/quartier_paris/export/?disjunctive.c_ar&location=12,48.85889,2.34692&basemap=jawg.streets
+paris <- st_read("quartier_paris.geojson") 
+
+paris_lambert <- paris  %>%
+  st_transform(.,crs=27572)
+```
+
+### Filter my data to Paris
+
+```{r}
+mydata_sf <- st_as_sf(mydata, coords = c("long","lat")) %>%
+  st_set_crs(4326) %>%
+  st_transform(.,crs=27572) %>% 
+  st_intersection(paris_lambert, .) 
+
+mydata_sf <- mydata_sf %>%
+  mutate(days = as.numeric(max(mydata_sf$date) - date))
+
+```
+
+### Import OSM data
+
+```{r}
+# Paris Metro
+x <- opq(bbox = sf::st_bbox(paris)) %>%
+   add_osm_feature(key = 'railway', value = "subway") %>%
+    osmdata_sf() 
+
+# Waterways
+y <- opq(bbox = sf::st_bbox(paris)) %>%
+   add_osm_feature(key = 'waterway') %>%
+    osmdata_sf() 
+
+# Green spaces
+z <- opq(bbox = sf::st_bbox(paris)) %>%
+   add_osm_feature(key = 'leisure', value="park") %>%
+    osmdata_sf() 
+```
+
+### Crop OSM features to Paris extent
+
+```{r}
+metrolines <- x$osm_lines %>%
+  st_transform(.,crs=27572) %>%
+  st_intersection(paris_lambert, .)
+
+water <- y$osm_lines %>%
+  st_transform(.,crs=27572) %>%
+  st_intersection(paris_lambert, .) %>%
+  filter(waterway %in% c("canal", "river"))
+
+green <- z$osm_polygons %>%
+  st_transform(.,crs=27572) %>%
+  st_intersection(paris_lambert, .)
+```
+
+## Plot the result
+
+```{r}
+ggplot() +
+   geom_sf(data = paris, fill=alpha("grey", 0.8), colour = "white") +
+  geom_sf(data = water, colour="#7485a8", aes(linewidth=waterway)) +
+  scale_discrete_manual("linewidth", values = c(1,2))+
+ # geom_sf(data = metrolines, aes(colour=ref)) +
+  geom_sf(data = green, fill="#74a87d", colour = "white", linewidth = 0) +
+  geom_sf(data = mydata_sf, aes(colour = days), size=3) +
+  scale_color_viridis_c(alpha = 0.8,
+                        begin = 0.6,
+                        end = 1,
+                        direction = -1,
+                        option = "B", 
+                        name="Days since first flash") +
+  guides(linewidth  = "none") +
+  theme_minimal()
+  
+
+```
+# Same for London
+```{r}
+
+
+# Greater London Authority, Ordnance Survey data © Crown copyright https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london
+London <- st_read("London_Ward.shp") 
+
+London_WGS84 <- London  %>%
+  st_transform(.,crs=4326)
+
+mydata_sf <- st_as_sf(mydata, coords = c("long","lat")) %>%
+  st_set_crs(4326) %>%
+  st_transform(.,crs=27700) %>% 
+  st_intersection(London, .) 
+
+mydata_sf <- mydata_sf %>%
+  mutate(days = as.numeric(max(mydata_sf$date) - date))
+
+# London Tube
+x <- opq(bbox = sf::st_bbox(London_WGS84)) %>%
+   add_osm_feature(key = 'railway', value = "subway") %>%
+    osmdata_sf() 
+
+# Waterways
+y <- opq(bbox = sf::st_bbox(London_WGS84)) %>%
+   add_osm_feature(key = 'waterway') %>%
+    osmdata_sf() 
+
+# Green spaces
+z <- opq(bbox = sf::st_bbox(London_WGS84)) %>%
+   add_osm_feature(key = 'leisure', value="park") %>%
+    osmdata_sf() 
+
+metrolines <- x$osm_lines %>%
+  st_transform(.,crs=27700) %>%
+  st_intersection(London, .)
+
+water <- y$osm_lines %>%
+  st_transform(.,crs=27700) %>%
+  st_intersection(London, .) %>%
+  filter(waterway %in% c("canal", "river"))
+
+green <- z$osm_polygons %>%
+  st_transform(.,crs=27700) %>%
+  st_intersection(London, .)
+
+
+ggplot() +
+   geom_sf(data = London, fill=alpha("grey", 0.8), colour = "white") +
+  geom_sf(data = water, colour="#7485a8", aes(linewidth=waterway)) +
+  scale_discrete_manual("linewidth", values = c(1,2))+
+ # geom_sf(data = metrolines, aes(colour=ref)) +
+  geom_sf(data = green, fill="#74a87d", colour = "white", linewidth = 0) +
+  geom_sf(data = mydata_sf, aes(colour = days), size=3) +
+  scale_color_viridis_c(alpha = 0.8,
+                        begin = 0.6,
+                        end = 1,
+                        direction = -1,
+                        option = "B", 
+                        name="Days since first flash") +
+  guides(linewidth  = "none") +
+  theme_minimal()
+
+
+```
+
