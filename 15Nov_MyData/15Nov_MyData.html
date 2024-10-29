@@ -199,8 +199,8 @@ Data (c) OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/cop
 </div>
 </div>
 </section>
-<section id="import-personal-data-paris-background" class="level3">
-<h3 class="anchored" data-anchor-id="import-personal-data-paris-background">2. Import personal data &amp; Paris background</h3>
+<section id="import-personal-data-city-backgrounds" class="level3">
+<h3 class="anchored" data-anchor-id="import-personal-data-city-backgrounds">2. Import personal data &amp; city backgrounds</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Parsonal data</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"MyData.csv"</span>) <span class="sc">%&gt;%</span></span>
@@ -217,7 +217,7 @@ chr (2): geometry, time
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Direction de l'Urbanisme - Ville de Paris, Opendata Paris, Open Database License (ODbL) https://opendata.paris.fr/explore/dataset/quartier_paris/export/?disjunctive.c_ar&amp;location=12,48.85889,2.34692&amp;basemap=jawg.streets</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>paris <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"quartier_paris.geojson"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>paris_WGS84 <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"quartier_paris.geojson"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `quartier_paris' from data source 
   `/Users/ccottineau/GitHub/30DayMapChallenge2024/15Nov_MyData/quartier_paris.geojson' 
@@ -228,100 +228,15 @@ Dimension:     XY
 Bounding box:  xmin: 2.224078 ymin: 48.81558 xmax: 2.469761 ymax: 48.90216
 Geodetic CRS:  WGS 84</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>paris_lambert <span class="ot">&lt;-</span> paris  <span class="sc">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span><span class="dv">27572</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="filter-my-data-to-paris" class="level3">
-<h3 class="anchored" data-anchor-id="filter-my-data-to-paris">Filter my data to Paris</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mydata_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(mydata, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"long"</span>,<span class="st">"lat"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_set_crs</span>(<span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span><span class="dv">27572</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(paris_lambert, .) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: attribute variables are assumed to be spatially constant throughout
-all geometries</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mydata_sf <span class="ot">&lt;-</span> mydata_sf <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">days =</span> <span class="fu">as.numeric</span>(<span class="fu">max</span>(mydata_sf<span class="sc">$</span>date) <span class="sc">-</span> date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="import-osm-data" class="level3">
-<h3 class="anchored" data-anchor-id="import-osm-data">Import OSM data</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paris Metro</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(paris)) <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">'railway'</span>, <span class="at">value =</span> <span class="st">"subway"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>() </span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Waterways</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(paris)) <span class="sc">%&gt;%</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">'waterway'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>() </span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Green spaces</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(paris)) <span class="sc">%&gt;%</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">'leisure'</span>, <span class="at">value=</span><span class="st">"park"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="crop-osm-features-to-paris-extent" class="level3">
-<h3 class="anchored" data-anchor-id="crop-osm-features-to-paris-extent">Crop OSM features to Paris extent</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>metrolines <span class="ot">&lt;-</span> x<span class="sc">$</span>osm_lines <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span><span class="dv">27572</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(paris_lambert, .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: attribute variables are assumed to be spatially constant throughout
-all geometries</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> y<span class="sc">$</span>osm_lines <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span><span class="dv">27572</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(paris_lambert, .) <span class="sc">%&gt;%</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(waterway <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"canal"</span>, <span class="st">"river"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: attribute variables are assumed to be spatially constant throughout
-all geometries</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>green <span class="ot">&lt;-</span> z<span class="sc">$</span>osm_polygons <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span><span class="dv">27572</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(paris_lambert, .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: attribute variables are assumed to be spatially constant throughout
-all geometries</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="plot-the-result" class="level2">
-<h2 class="anchored" data-anchor-id="plot-the-result">Plot the result</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_sf</span>(<span class="at">data =</span> paris, <span class="at">fill=</span><span class="fu">alpha</span>(<span class="st">"grey"</span>, <span class="fl">0.8</span>), <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> water, <span class="at">colour=</span><span class="st">"#7485a8"</span>, <span class="fu">aes</span>(<span class="at">linewidth=</span>waterway)) <span class="sc">+</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_discrete_manual</span>(<span class="st">"linewidth"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))<span class="sc">+</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a> <span class="co"># geom_sf(data = metrolines, aes(colour=ref)) +</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> green, <span class="at">fill=</span><span class="st">"#74a87d"</span>, <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> mydata_sf, <span class="fu">aes</span>(<span class="at">colour =</span> days), <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>,</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>                        <span class="at">begin =</span> <span class="fl">0.6</span>,</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">end =</span> <span class="dv">1</span>,</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>,</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">option =</span> <span class="st">"B"</span>, </span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">name=</span><span class="st">"Days since first flash"</span>) <span class="sc">+</span></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">linewidth  =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="15Nov_MyData_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="same-for-london" class="level1">
-<h1>Same for London</h1>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Greater London Authority, Ordnance Survey data © Crown copyright https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>London <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"London_Ward.shp"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>paris_crs <span class="ot">&lt;-</span> <span class="dv">27572</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>paris_metric <span class="ot">&lt;-</span> paris_WGS84 <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span>paris_crs)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Greater London Authority, Ordnance Survey data © Crown copyright https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>london_metric <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"London_Ward.shp"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `London_Ward' from data source 
   `/Users/ccottineau/GitHub/30DayMapChallenge2024/15Nov_MyData/London_Ward.shp' 
@@ -332,79 +247,105 @@ Dimension:     XY
 Bounding box:  xmin: 503568.2 ymin: 155850.8 xmax: 561957.5 ymax: 200933.9
 Projected CRS: OSGB36 / British National Grid</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>London_WGS84 <span class="ot">&lt;-</span> London  <span class="sc">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span><span class="dv">4326</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>mydata_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(mydata, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"long"</span>,<span class="st">"lat"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_set_crs</span>(<span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span><span class="dv">27700</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(London, .) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: attribute variables are assumed to be spatially constant throughout
-all geometries</code></pre>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>london_crs <span class="ot">&lt;-</span> <span class="dv">27700</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>london_WGS84 <span class="ot">&lt;-</span> london_metric  <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span><span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>mydata_sf <span class="ot">&lt;-</span> mydata_sf <span class="sc">%&gt;%</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">days =</span> <span class="fu">as.numeric</span>(<span class="fu">max</span>(mydata_sf<span class="sc">$</span>date) <span class="sc">-</span> date))</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># London Tube</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(London_WGS84)) <span class="sc">%&gt;%</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">'railway'</span>, <span class="at">value =</span> <span class="st">"subway"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>() </span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Waterways</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(London_WGS84)) <span class="sc">%&gt;%</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">'waterway'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in fix_columns_list(res[kv_df]): Feature keys clash with id or metadata columns and will be renamed by appending `.n`:
-    osm_id.1</code></pre>
+</section>
+<section id="one-function-to-filter-crop-and-map-data" class="level3">
+<h3 class="anchored" data-anchor-id="one-function-to-filter-crop-and-map-data">3. One function to filter, crop and map data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>city_flash_map <span class="ot">&lt;-</span> <span class="cf">function</span>(city){</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(city <span class="sc">==</span> <span class="st">"Paris"</span>){</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>city_metric <span class="ot">&lt;-</span> paris_metric</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>city_WGS84 <span class="ot">&lt;-</span> paris_WGS84</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>city_crs <span class="ot">&lt;-</span> paris_crs</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(city <span class="sc">==</span> <span class="st">"London"</span>){</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>city_metric <span class="ot">&lt;-</span> london_metric</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>city_WGS84 <span class="ot">&lt;-</span> london_WGS84</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>city_crs <span class="ot">&lt;-</span> london_crs</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="do">### Filter my data to city</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>mydata_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(mydata, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"long"</span>,<span class="st">"lat"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_set_crs</span>(<span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span>city_crs) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(city_metric, .) </span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>mydata_sf <span class="ot">&lt;-</span> mydata_sf <span class="sc">%&gt;%</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">days =</span> <span class="fu">as.numeric</span>(<span class="fu">max</span>(mydata_sf<span class="sc">$</span>date) <span class="sc">-</span> date))</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="do">### Import OSM data</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Metro</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(city_WGS84)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">'railway'</span>, <span class="at">value =</span> <span class="st">"subway"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>() </span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Waterways</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(city_WGS84)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">'waterway'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>() </span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Green spaces</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(city_WGS84)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">'leisure'</span>, <span class="at">value=</span><span class="st">"park"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>() </span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="do">### Crop OSM features to city extent</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>metrolines <span class="ot">&lt;-</span> x<span class="sc">$</span>osm_lines <span class="sc">%&gt;%</span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span>city_crs) <span class="sc">%&gt;%</span></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(city_metric, .)</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> y<span class="sc">$</span>osm_lines <span class="sc">%&gt;%</span></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span>city_crs) <span class="sc">%&gt;%</span></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(city_metric, .) <span class="sc">%&gt;%</span></span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(waterway <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"canal"</span>, <span class="st">"river"</span>))</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>green <span class="ot">&lt;-</span> z<span class="sc">$</span>osm_polygons <span class="sc">%&gt;%</span></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span>city_crs) <span class="sc">%&gt;%</span></span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(city_metric, .)</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the result</span></span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_sf</span>(<span class="at">data =</span> city_metric, <span class="at">fill=</span><span class="fu">alpha</span>(<span class="st">"grey"</span>, <span class="fl">0.8</span>), <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> water, <span class="at">colour=</span><span class="st">"#7485a8"</span>, <span class="fu">aes</span>(<span class="at">linewidth=</span>waterway)) <span class="sc">+</span></span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_discrete_manual</span>(<span class="st">"linewidth"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))<span class="sc">+</span></span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a> <span class="co"># geom_sf(data = metrolines, aes(colour=ref)) +</span></span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> green, <span class="at">fill=</span><span class="st">"#74a87d"</span>, <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> mydata_sf, <span class="fu">aes</span>(<span class="at">colour =</span> days), <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">datum =</span> <span class="fu">st_crs</span>(city_crs)) <span class="sc">+</span></span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>,</span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>                        <span class="at">begin =</span> <span class="fl">0.6</span>,</span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>                        <span class="at">end =</span> <span class="dv">1</span>,</span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>                        <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>,</span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>                        <span class="at">option =</span> <span class="st">"B"</span>, </span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>                        <span class="at">name=</span><span class="st">"# Days since </span><span class="sc">\n</span><span class="st"> first flash"</span>) <span class="sc">+</span></span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">"Clémentine's 2020 flash recollection of places in "</span>, city)) <span class="sc">+</span></span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">linewidth  =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">6</span>))</span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Green spaces</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(London_WGS84)) <span class="sc">%&gt;%</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">'leisure'</span>, <span class="at">value=</span><span class="st">"park"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>() </span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>metrolines <span class="ot">&lt;-</span> x<span class="sc">$</span>osm_lines <span class="sc">%&gt;%</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span><span class="dv">27700</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(London, .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: attribute variables are assumed to be spatially constant throughout
-all geometries</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> y<span class="sc">$</span>osm_lines <span class="sc">%&gt;%</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span><span class="dv">27700</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(London, .) <span class="sc">%&gt;%</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(waterway <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"canal"</span>, <span class="st">"river"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: attribute variables are assumed to be spatially constant throughout
-all geometries</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>green <span class="ot">&lt;-</span> z<span class="sc">$</span>osm_polygons <span class="sc">%&gt;%</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span><span class="dv">27700</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(London, .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: attribute variables are assumed to be spatially constant throughout
-all geometries</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_sf</span>(<span class="at">data =</span> London, <span class="at">fill=</span><span class="fu">alpha</span>(<span class="st">"grey"</span>, <span class="fl">0.8</span>), <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> water, <span class="at">colour=</span><span class="st">"#7485a8"</span>, <span class="fu">aes</span>(<span class="at">linewidth=</span>waterway)) <span class="sc">+</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_discrete_manual</span>(<span class="st">"linewidth"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))<span class="sc">+</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a> <span class="co"># geom_sf(data = metrolines, aes(colour=ref)) +</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> green, <span class="at">fill=</span><span class="st">"#74a87d"</span>, <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> mydata_sf, <span class="fu">aes</span>(<span class="at">colour =</span> days), <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>,</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>                        <span class="at">begin =</span> <span class="fl">0.6</span>,</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">end =</span> <span class="dv">1</span>,</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>,</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">option =</span> <span class="st">"B"</span>, </span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">name=</span><span class="st">"Days since first flash"</span>) <span class="sc">+</span></span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">linewidth  =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="pick-a-city-and-make-a-map" class="level3">
+<h3 class="anchored" data-anchor-id="pick-a-city-and-make-a-map">4. Pick a city and make a map</h3>
+<div class="cell" data-verbose="false">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">city_flash_map</span>(<span class="st">"Paris"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="15Nov_MyData_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="15Nov_MyData_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">city_flash_map</span>(<span class="st">"London"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="15Nov_MyData_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
 </section>
 
 </main>
