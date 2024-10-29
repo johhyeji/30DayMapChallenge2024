@@ -118,7 +118,7 @@ ggplot() +
    geom_sf(data = geodemo, aes(fill=data_avail), colour = "white") +
   geom_sf(data = centroids, colour=alpha("#93278F",0.7), 
           aes(size=Demonstrations)) +
-  guides(size=guide_legend(title="Number of demonstrations held \nbetween Oct. 2023 and Oct. 2024")) +
+  guides(size=guide_legend(title="# of demonstrations\nheld between Oct'23 \nand Oct'24")) +
   ggsflabel::geom_sf_text_repel(data = geodemo %>% filter(Demonstrations > 50), 
                                  aes(label = shapeName),  fill = alpha("white", 0.5),
                                  size = 2.5, family="Courier",
