@@ -148,6 +148,7 @@ ggplot() +
                       na.value = NA, name="# Days since \n earliest flash") +
   ggtitle(paste0("15Nov. My Data \n",
                  city, " flashes during the first COVID lockdown")) +
+    ylab("")+
   xlab(paste0("#30DayMapChallenge. Clémentine Cottineau-Mugadza, 2024. Personal data.\n Map background: ", source, ".")) +
   guides(linewidth  = "none") +
   theme_minimal() +

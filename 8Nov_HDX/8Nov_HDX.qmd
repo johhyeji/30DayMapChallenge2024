@@ -130,6 +130,7 @@ ggplot() +
                     name="", limits = c('Unavailable data')) +
   ggtitle(paste0("8Nov. HDX Data Palestine \n",
                  "A year of demonstrations")) +
+  ylab("")+
   xlab(paste0("#30DayMapChallenge. Clémentine Cottineau-Mugadza, 2024. 
   HDX data: Palestinian Central Bureau of Statistics. 	Who's On First.
   Open Data WatchgeoBoundaries, Open Data Watchraster2polygon.")) +
