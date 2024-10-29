@@ -14,6 +14,13 @@ This can be a **great opportunity to work on your mapping skills with R, to expe
 
 If you're not sure about the challenge, want support with R or just enjoy some company while mapping, let's meet on **30th October at 14:30, room BG.West.640**.
 
+
+## Our logo
+![](https://rbanism.org/assets/imgs/about/vi_l.jpg)
+
+## Our colour Hex codes
+`#93278F`, `#00A99D`, `#F7931E`
+
 =======
 
 ![30DayMapChallenge2024](https://30daymapchallenge.com/imgs/30dmc_2024.png)
