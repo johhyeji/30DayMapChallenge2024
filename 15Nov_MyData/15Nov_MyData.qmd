@@ -158,8 +158,10 @@ ggplot() +
   guides(linewidth  = "none") +
   theme_minimal() +
   theme(axis.text=element_text(size=6, family="Courier"),
-        title.text=element_text(face="bold", size=10, family="Courier"),
-        axis.title=element_text(size=8, family="Courier")) 
+       plot.title=element_text(size=12, family="Courier"),
+        axis.title=element_text(size=8, family="Courier"),
+       legend.text=element_text(size=8, family="Courier"),
+       legend.title=element_text(size=10, family="Courier")) 
 
 }
 ```
