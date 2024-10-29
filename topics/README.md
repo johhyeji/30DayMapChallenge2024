@@ -1,6 +1,6 @@
 ### Frequency of topics in previous challenges:
 
-Historically, some themes and constraints reoccur. We have identified them [here](https://github.com/Rbanism/30DayMapChallenge2024/blob/main/README.md#frequency-of-topics-in-previous-challenges) using challenges from previous years (cf. [R code here](https://github.com/Rbanism/30DayMapChallenge2024/blob/main/topics/historicalTopics.qmd)).
+Historically, some themes and constraints reoccur. We have identified them using challenges from previous years (cf. [R code here](https://github.com/Rbanism/30DayMapChallenge2024/blob/main/topics/historicalTopics.qmd)).
 
  N | Topic | Number of times in previous 5 years
  --- | --- | ---
