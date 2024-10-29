@@ -60,8 +60,6 @@ paris_crs <- 27572
 paris_metric <- paris_WGS84 %>%
   st_transform(.,crs=paris_crs)
 
-
-
 # Greater London Authority, Ordnance Survey data with © Crown copyright https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london
 london_metric <- st_read("London_Ward.shp") 
 
@@ -70,11 +68,8 @@ london_crs <- 27700
 london_WGS84 <- london_metric  %>%
   st_transform(.,crs=4326)
 
-
 # Download Rbanism logo
 rbanism_logo <- image_read('https://rbanism.org/assets/imgs/about/vi_l.jpg')
-
-
 ```
 
 ### 3. One function to filter, crop and map data
@@ -97,7 +92,6 @@ city_crs <- london_crs
 source <- "Greater London Authority, Ordnance Survey w/ © Crown copyright"
 }
   
-bb<- sf::st_bbox(city_metric)
 bbWGS <- sf::st_bbox(city_WGS84)
   
 ### Filter my data to city
