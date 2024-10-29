@@ -142,11 +142,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="import-personal-data-city-backgrounds-rbanism-logo" class="level3">
 <h3 class="anchored" data-anchor-id="import-personal-data-city-backgrounds-rbanism-logo">2. Import personal data, city backgrounds &amp; Rbanism logo</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Parsonal data</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"MyData.csv"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">long =</span>  <span class="fu">word</span>(<span class="fu">word</span>(<span class="fu">word</span>(geometry, <span class="dv">2</span>, <span class="at">sep=</span><span class="st">"</span><span class="sc">\\</span><span class="st">("</span>), <span class="dv">1</span>,  <span class="at">sep=</span><span class="st">"</span><span class="sc">\\</span><span class="st">)"</span>), <span class="dv">1</span>, <span class="at">sep=</span><span class="st">"</span><span class="sc">\\</span><span class="st"> "</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">lat =</span>  <span class="fu">word</span>(<span class="fu">word</span>(<span class="fu">word</span>(geometry, <span class="dv">2</span>, <span class="at">sep=</span><span class="st">"</span><span class="sc">\\</span><span class="st">("</span>), <span class="dv">1</span>,  <span class="at">sep=</span><span class="st">"</span><span class="sc">\\</span><span class="st">)"</span>), <span class="dv">2</span>, <span class="at">sep=</span><span class="st">"</span><span class="sc">\\</span><span class="st"> "</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">date =</span> <span class="fu">dmy</span>(time))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Personal data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.google.com/maps/d/edit?mid=1u_XNZO2eSg8vmpIPjjkHy2nDyPEiuhGa&amp;usp=sharing</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"MyData.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">long =</span>  <span class="fu">word</span>(<span class="fu">word</span>(<span class="fu">word</span>(geometry, <span class="dv">2</span>, <span class="at">sep=</span><span class="st">"</span><span class="sc">\\</span><span class="st">("</span>), <span class="dv">1</span>,  <span class="at">sep=</span><span class="st">"</span><span class="sc">\\</span><span class="st">)"</span>), <span class="dv">1</span>, <span class="at">sep=</span><span class="st">"</span><span class="sc">\\</span><span class="st"> "</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">lat =</span>  <span class="fu">word</span>(<span class="fu">word</span>(<span class="fu">word</span>(geometry, <span class="dv">2</span>, <span class="at">sep=</span><span class="st">"</span><span class="sc">\\</span><span class="st">("</span>), <span class="dv">1</span>,  <span class="at">sep=</span><span class="st">"</span><span class="sc">\\</span><span class="st">)"</span>), <span class="dv">2</span>, <span class="at">sep=</span><span class="st">"</span><span class="sc">\\</span><span class="st"> "</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">date =</span> <span class="fu">dmy</span>(time))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 45 Columns: 2
 ── Column specification ────────────────────────────────────────────────────────
@@ -216,71 +217,71 @@ Projected CRS: OSGB36 / British National Grid</code></pre>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>source <span class="ot">&lt;-</span> <span class="st">"Greater London Authority, Ordnance Survey w/ © Crown copyright"</span></span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>bb<span class="ot">&lt;-</span>sf<span class="sc">::</span><span class="fu">st_bbox</span>(city_metric)</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="do">### Filter my data to city</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>mydata_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(mydata, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"long"</span>,<span class="st">"lat"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_set_crs</span>(<span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span>city_crs) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(city_metric, .) </span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>mydata_sf <span class="ot">&lt;-</span> mydata_sf <span class="sc">%&gt;%</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">days =</span> <span class="fu">as.numeric</span>(<span class="fu">max</span>(mydata_sf<span class="sc">$</span>date) <span class="sc">-</span> date))</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="do">### Import OSM data</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Metro</span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(city_WGS84)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">'railway'</span>, <span class="at">value =</span> <span class="st">"subway"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>() </span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Waterways</span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(city_WGS84)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">'waterway'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>() </span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Green spaces</span></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(city_WGS84)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">'leisure'</span>, <span class="at">value=</span><span class="st">"park"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>() </span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="do">### Crop OSM features to city extent</span></span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>metrolines <span class="ot">&lt;-</span> x<span class="sc">$</span>osm_lines <span class="sc">%&gt;%</span></span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span>city_crs) <span class="sc">%&gt;%</span></span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(city_metric, .)</span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> y<span class="sc">$</span>osm_lines <span class="sc">%&gt;%</span></span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span>city_crs) <span class="sc">%&gt;%</span></span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(city_metric, .) <span class="sc">%&gt;%</span></span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(waterway <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"canal"</span>, <span class="st">"river"</span>))</span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>green <span class="ot">&lt;-</span> z<span class="sc">$</span>osm_polygons <span class="sc">%&gt;%</span></span>
-<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span>city_crs) <span class="sc">%&gt;%</span></span>
-<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(city_metric, .)</span>
-<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the result</span></span>
-<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_sf</span>(<span class="at">data =</span> city_metric, <span class="at">fill=</span><span class="fu">alpha</span>(<span class="st">"grey"</span>, <span class="fl">0.8</span>), <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> water, <span class="at">colour=</span><span class="st">"#7485a8"</span>, <span class="fu">aes</span>(<span class="at">linewidth=</span>waterway)) <span class="sc">+</span></span>
-<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_discrete_manual</span>(<span class="st">"linewidth"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))<span class="sc">+</span></span>
-<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a> <span class="co"># geom_sf(data = metrolines, aes(colour=ref)) +</span></span>
-<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> green, <span class="at">fill=</span><span class="st">"#74a87d"</span>, <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> mydata_sf, <span class="fu">aes</span>(<span class="at">colour =</span> days), <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">datum =</span> <span class="fu">st_crs</span>(city_crs)) <span class="sc">+</span></span>
-<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>,</span>
-<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>                        <span class="at">begin =</span> <span class="fl">0.6</span>,</span>
-<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>                        <span class="at">end =</span> <span class="dv">1</span>,</span>
-<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>                        <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>,</span>
-<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>                        <span class="at">option =</span> <span class="st">"B"</span>, </span>
-<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>                        <span class="at">name=</span><span class="st">"# Days since </span><span class="sc">\n</span><span class="st"> earliest flash"</span>) <span class="sc">+</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>bb<span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(city_metric)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>bbWGS <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(city_WGS84)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="do">### Filter my data to city</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>mydata_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(mydata, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"long"</span>,<span class="st">"lat"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_set_crs</span>(<span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span>city_crs) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(city_metric, .) </span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>mydata_sf <span class="ot">&lt;-</span> mydata_sf <span class="sc">%&gt;%</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">days =</span> <span class="fu">as.numeric</span>(<span class="fu">max</span>(mydata_sf<span class="sc">$</span>date) <span class="sc">-</span> date))</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="do">### Import OSM data</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Metro</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> bbWGS) <span class="sc">%&gt;%</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">'railway'</span>, <span class="at">value =</span> <span class="st">"subway"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>() </span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Waterways</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> bbWGS) <span class="sc">%&gt;%</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">'waterway'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>() </span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Green spaces</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> bbWGS) <span class="sc">%&gt;%</span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>   <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">'leisure'</span>, <span class="at">value=</span><span class="st">"park"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>() </span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="do">### Crop OSM features to city extent</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>metrolines <span class="ot">&lt;-</span> x<span class="sc">$</span>osm_lines <span class="sc">%&gt;%</span></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span>city_crs) <span class="sc">%&gt;%</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(city_metric, .)</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> y<span class="sc">$</span>osm_lines <span class="sc">%&gt;%</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span>city_crs) <span class="sc">%&gt;%</span></span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(city_metric, .) <span class="sc">%&gt;%</span></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(waterway <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"canal"</span>, <span class="st">"river"</span>))</span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>green <span class="ot">&lt;-</span> z<span class="sc">$</span>osm_polygons <span class="sc">%&gt;%</span></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(.,<span class="at">crs=</span>city_crs) <span class="sc">%&gt;%</span></span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(city_metric, .)</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(extrafont)</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a><span class="fu">loadfonts</span>(<span class="at">device =</span> <span class="st">"postscript"</span>)</span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the result</span></span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_sf</span>(<span class="at">data =</span> city_metric, <span class="at">fill=</span><span class="fu">alpha</span>(<span class="st">"grey"</span>, <span class="fl">0.8</span>), <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> water, <span class="at">colour=</span><span class="fu">alpha</span>(<span class="st">"#93278F"</span>,<span class="fl">0.7</span>), <span class="fu">aes</span>(<span class="at">linewidth=</span>waterway)) <span class="sc">+</span></span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_discrete_manual</span>(<span class="st">"linewidth"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))<span class="sc">+</span></span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a> <span class="co"># geom_sf(data = metrolines, aes(colour=ref)) +</span></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> green, <span class="at">fill=</span><span class="st">"#00A99D"</span>, <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> mydata_sf, <span class="fu">aes</span>(<span class="at">colour =</span> days), <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">datum =</span> <span class="fu">st_crs</span>(city_crs)) <span class="sc">+</span></span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_gradient</span>(<span class="at">low =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"#F7931E"</span>,</span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>                      <span class="at">na.value =</span> <span class="cn">NA</span>, <span class="at">name=</span><span class="st">"# Days since </span><span class="sc">\n</span><span class="st"> earliest flash"</span>) <span class="sc">+</span></span>
 <span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">"15Nov. My Data </span><span class="sc">\n</span><span class="st">"</span>,</span>
 <span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>                 city, <span class="st">" flashes during the first COVID lockdown"</span>)) <span class="sc">+</span></span>
 <span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="fu">paste0</span>(<span class="st">"#30DayMapChallenge. Clémentine Cottineau-Mugadza, 2024. Personal data.</span><span class="sc">\n</span><span class="st"> Map background: "</span>, source, <span class="st">"."</span>)) <span class="sc">+</span></span>
 <span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">linewidth  =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
 <span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">6</span>),</span>
-<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span> ,<span class="at">face=</span><span class="st">"bold"</span>),</span>
-<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>)) </span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">6</span>, <span class="at">family=</span><span class="st">"Courier"</span>),</span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>        <span class="at">title.text=</span><span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"Times"</span>, <span class="at">face=</span><span class="st">"bold"</span>, <span class="at">size=</span><span class="dv">10</span>),</span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>, <span class="at">family=</span><span class="st">"Courier"</span>)) </span>
 <span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>

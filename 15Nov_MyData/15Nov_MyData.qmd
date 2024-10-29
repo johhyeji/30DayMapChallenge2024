@@ -43,7 +43,8 @@ load_packages(packages)
 ### 2. Import personal data, city backgrounds & Rbanism logo
 
 ```{r}
-#Parsonal data
+# Personal data
+# https://www.google.com/maps/d/edit?mid=1u_XNZO2eSg8vmpIPjjkHy2nDyPEiuhGa&usp=sharing
 mydata <- read_csv("MyData.csv") %>%
   mutate(long =  word(word(word(geometry, 2, sep="\\("), 1,  sep="\\)"), 1, sep="\\ "),
          lat =  word(word(word(geometry, 2, sep="\\("), 1,  sep="\\)"), 2, sep="\\ "),
@@ -95,8 +96,9 @@ city_crs <- london_crs
 source <- "Greater London Authority, Ordnance Survey w/ © Crown copyright"
 }
   
-bb<-sf::st_bbox(city_metric)
-
+bb<- sf::st_bbox(city_metric)
+bbWGS <- sf::st_bbox(city_WGS84)
+  
 ### Filter my data to city
 
 mydata_sf <- st_as_sf(mydata, coords = c("long","lat")) %>%
@@ -109,17 +111,17 @@ mydata_sf <- mydata_sf %>%
 
 ### Import OSM data
 # Metro
-x <- opq(bbox = sf::st_bbox(city_WGS84)) %>%
+x <- opq(bbox = bbWGS) %>%
    add_osm_feature(key = 'railway', value = "subway") %>%
     osmdata_sf() 
 
 # Waterways
-y <- opq(bbox = sf::st_bbox(city_WGS84)) %>%
+y <- opq(bbox = bbWGS) %>%
    add_osm_feature(key = 'waterway') %>%
     osmdata_sf() 
 
 # Green spaces
-z <- opq(bbox = sf::st_bbox(city_WGS84)) %>%
+z <- opq(bbox = bbWGS) %>%
    add_osm_feature(key = 'leisure', value="park") %>%
     osmdata_sf() 
 
@@ -137,29 +139,28 @@ green <- z$osm_polygons %>%
   st_transform(.,crs=city_crs) %>%
   st_intersection(city_metric, .)
 
+library(extrafont)
+loadfonts(device = "postscript")
+
 ## Plot the result
 ggplot() +
    geom_sf(data = city_metric, fill=alpha("grey", 0.8), colour = "white") +
-  geom_sf(data = water, colour="#7485a8", aes(linewidth=waterway)) +
+  geom_sf(data = water, colour=alpha("#93278F",0.7), aes(linewidth=waterway)) +
   scale_discrete_manual("linewidth", values = c(1,2))+
  # geom_sf(data = metrolines, aes(colour=ref)) +
-  geom_sf(data = green, fill="#74a87d", colour = "white", linewidth = 0) +
+  geom_sf(data = green, fill="#00A99D", colour = "white", linewidth = 0) +
   geom_sf(data = mydata_sf, aes(colour = days), size=3) +
   coord_sf(datum = st_crs(city_crs)) +
-  scale_color_viridis_c(alpha = 0.8,
-                        begin = 0.6,
-                        end = 1,
-                        direction = -1,
-                        option = "B", 
-                        name="# Days since \n earliest flash") +
+  scale_colour_gradient(low = "white", high = "#F7931E",
+                      na.value = NA, name="# Days since \n earliest flash") +
   ggtitle(paste0("15Nov. My Data \n",
                  city, " flashes during the first COVID lockdown")) +
   xlab(paste0("#30DayMapChallenge. Clémentine Cottineau-Mugadza, 2024. Personal data.\n Map background: ", source, ".")) +
   guides(linewidth  = "none") +
   theme_minimal() +
-  theme(axis.text=element_text(size=6),
-        title.text=element_text(size=10 ,face="bold"),
-        axis.title=element_text(size=8)) 
+  theme(axis.text=element_text(size=6, family="Courier"),
+        title.text=element_text(face="bold", size=10),
+        axis.title=element_text(size=8, family="Courier")) 
 
 }
 ```
