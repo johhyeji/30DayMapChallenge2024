@@ -19,7 +19,9 @@ If you're not sure about the challenge, want support with R or just enjoy some c
 ![](https://rbanism.org/assets/imgs/about/vi_l.jpg)
 
 ## Our colour Hex codes
-`#93278F`, `#00A99D`, `#F7931E`
+Purple: `#93278F`
+Teal: `#00A99D`
+Orange: `#F7931E`
 
 =======
 
