@@ -103,14 +103,11 @@ geodemo <- left_join(Palestine, demo, by="shapeISO") %>%
   mutate(data_avail = ifelse(is.na(Demonstrations), "Unavailable data", ""))
 centroids <- st_centroid(geodemo)
 
-# Crop Israel map to boundix box of Palestine
-
+# Crop Israel map to bounding box of Palestine
 if(st_crs(Palestine) == st_crs(Israel)){
 cropped_Israel <- st_crop(Israel,
                           sf::st_bbox(geodemo))
 }
-
-
 
 ## Map the result
 ggplot() +
@@ -143,7 +140,6 @@ ggplot() +
        legend.text=element_text(size=8, family="Courier"),
        legend.title=element_text(size=10, family="Courier"),
        ) 
-
 
 grid.raster(rbanism_logo,
             x = 0.9, y=0.9,
