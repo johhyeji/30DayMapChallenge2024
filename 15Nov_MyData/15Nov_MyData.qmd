@@ -18,7 +18,7 @@ format:
 packages <- c("tidyverse", "sf", "osmdata",
               "geojsonR", "httr2", "stringr",
               "lubridate", "magick", "magrittr",
-              "grid")
+              "grid", "extrafont")
 
 # Function to check if packages are installed and load them
 load_packages <- function(pkgs) {
@@ -36,6 +36,7 @@ load_packages <- function(pkgs) {
 
 # Load the packages
 load_packages(packages)
+loadfonts(device = "postscript")
 
 
 ```
@@ -139,8 +140,6 @@ green <- z$osm_polygons %>%
   st_transform(.,crs=city_crs) %>%
   st_intersection(city_metric, .)
 
-library(extrafont)
-loadfonts(device = "postscript")
 
 ## Plot the result
 ggplot() +
@@ -159,7 +158,7 @@ ggplot() +
   guides(linewidth  = "none") +
   theme_minimal() +
   theme(axis.text=element_text(size=6, family="Courier"),
-        title.text=element_text(face="bold", size=10),
+        title.text=element_text(face="bold", size=10, family="Courier"),
         axis.title=element_text(size=8, family="Courier")) 
 
 }
