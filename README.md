@@ -57,11 +57,10 @@ grid.raster(rbanism_logo, x = 0.9, y=0.9,  # x and y determine the position of t
 
 On BlueSky
 - The Challenge [feed](https://bsky.app/profile/did:plc:bjm7fq6jgotowpim5ggfbzw6/feed/aaaiqkbjq3yhy)
-- [Rbanism](https://bsky.app/profile/rbanism.bsky.social)
+- [@Rbanism](https://bsky.app/profile/rbanism.bsky.social)
 
 On Instagram
-- The Challenge [feed]()
-- [Rbanism]()
+- [@Rbanism](https://www.instagram.com/rbanism/)
 
 
 # Any questions or ideas?
