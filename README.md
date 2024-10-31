@@ -14,6 +14,9 @@ This can be a **great opportunity to work on your mapping skills with R, to expe
 
 If you're not sure about the challenge, want support with R or just enjoy some company while mapping, let's meet on **30th October at 14:30, room BG.West.640**.
 
+## Resources
+- [Geospatial Data Carpentry for Urbanism](https://carpentries-incubator.github.io/r-geospatial-urban/) provides a comprehensive guide on how you can work with raster and vector data in R.
+
 
 ## Our logo
 ![](https://rbanism.org/assets/imgs/about/vi_l.jpg)
