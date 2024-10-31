@@ -60,7 +60,7 @@ On BlueSky
 - [@Rbanism](https://bsky.app/profile/rbanism.bsky.social)
 
 On Instagram
-- [@Rbanism](https://www.instagram.com/rbanism/)
+- [@Rbanism_](https://www.instagram.com/rbanism/)
 
 
 # Any questions or ideas?
