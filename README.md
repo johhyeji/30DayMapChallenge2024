@@ -12,8 +12,6 @@ If you would like to join the challenge, you can:
 
 This can be a **great opportunity to work on your mapping skills with R, to experiment with new packages and new functions, and to link with fellow mappers at TU Delft**. We're looking forward to see what Rbanism comes up with as a community, and will host the result on our [website](rbanism.org).
 
-If you're not sure about the challenge, want support with R or just enjoy some company while mapping, let's meet on **30th October at 14:30, room BG.West.640**.
-
 ## Resources
 - [Geospatial Data Carpentry for Urbanism](https://carpentries-incubator.github.io/r-geospatial-urban/) provides a comprehensive guide on how you can work with raster and vector data in R.
 
