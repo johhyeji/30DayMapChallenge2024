@@ -42,7 +42,7 @@ grid.raster(rbanism_logo, x = 0.9, y=0.9,  # x and y determine the position of t
 
 1. Check the [presentation](https://rbanism.github.io/30DayMapChallenge2024/), [template](https://rbanism.github.io/30DayMapChallenge2024/template/30daysmapchallenge_template_example.html) and map [examples](https://rbanism.github.io/30DayMapChallenge2024/8Nov_HDX/8Nov_HDX.html) on GitHub.
 2. You can use Rbanism color [hexcodes](https://github.com/Rbanism/30DayMapChallenge2024?tab=readme-ov-file#our-colour-hex-codes) for visual references,  but feel free to use other colors of your preference
-3. Make sure your map includes the challenge date and topic (ideally as part of the title), author credits, data sources, licenses, **the Rbanism logo and #30DayMayChallenge hashtag**.** See our examples [here](https://rbanism.github.io/30DayMapChallenge2024/8Nov_HDX/8Nov_HDX.html) and [here](https://rbanism.github.io/30DayMapChallenge2024/15Nov_MyData/15Nov_MyData.html).
+3. Make sure your map includes the challenge date and topic (ideally as part of the title), author credits, data sources, licenses, **the Rbanism logo and #30DayMayChallenge hashtag**. See our examples [here](https://rbanism.github.io/30DayMapChallenge2024/8Nov_HDX/8Nov_HDX.html) and [here](https://rbanism.github.io/30DayMapChallenge2024/15Nov_MyData/15Nov_MyData.html).
 4. Export you map into a `.png` image. You can use the `ggsave` function if using the `ggplot2` package for mapping. See our examples [here](https://rbanism.github.io/30DayMapChallenge2024/8Nov_HDX/8Nov_HDX.html) and [here](https://rbanism.github.io/30DayMapChallenge2024/15Nov_MyData/15Nov_MyData.html).
 
 ## Guidelines for submission
@@ -53,7 +53,18 @@ grid.raster(rbanism_logo, x = 0.9, y=0.9,  # x and y determine the position of t
 
 **If you want your author credits to be shared on our social media, please share your instagram handle with the submission! If via email, simply add it to the mail, if via GitHub, please add a .txt file within the folder.*
 
-## Any questions or ideas?
+## #30DayMapChallenge on social media 
+
+On BlueSky
+- The Challenge [feed](https://bsky.app/profile/did:plc:bjm7fq6jgotowpim5ggfbzw6/feed/aaaiqkbjq3yhy)
+- [Rbanism](https://bsky.app/profile/rbanism.bsky.social)
+
+On Instagram
+- The Challenge [feed]()
+- [Rbanism]()
+
+
+# Any questions or ideas?
 
 If there any ideas, questions, or uncertainties regarding the challenge, please don’t hesitate to reach out to us via [rbanism@tudelft.nl](mailto:rbanism@tudelft.nl) !
 
