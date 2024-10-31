@@ -23,6 +23,17 @@ Purple: `#93278F`
 Teal: `#00A99D`
 Orange: `#F7931E`
 
+## How to overlay our logo onto a ggplot map?
+
+install.packages(c("magick","grid"))
+library(magick)
+library(grid)
+rbanism_logo <- image_read('https://rbanism.org/assets/imgs/about/vi_l.jpg') 
+ggplot()                                   # make your map
+grid.raster(rbanism_logo, x = 0.9, y=0.9,  # x and y determine the position of the logo (top right)
+            width = unit(100, "points"))   # width determines the size of the logo
+
+            
 =======
 
 ![30DayMapChallenge2024](https://30daymapchallenge.com/imgs/30dmc_2024.png)
