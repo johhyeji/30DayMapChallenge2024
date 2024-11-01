@@ -71,6 +71,7 @@ If there any ideas, questions, or uncertainties regarding the challenge, please 
 
 ![30DayMapChallenge2024](https://30daymapchallenge.com/imgs/30dmc_2024.png)
 
+```
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:s5ffe7xllzt5djlvhvuc2cto/app.bsky.feed.post/3l7uriq6vqq2z" data-bluesky-cid="bafyreieeokkwafb2cayvr55ju56oovreusgqxnkaumiqwa3jagie6a37ia"><p lang="en">#30DayMapChallenge Day 1. Points.
 
 Urban Amenities in Amsterdam.
@@ -80,5 +81,6 @@ By Pietro Bernardini &amp; Claudiu Forgaci, 2024.
 Data: OpenStreetMap, AHN3.
 
 #Rbanism #30DayMapChallenge2024 #30DayMapChallenge2024_Rbanism<br><br><a href="https://bsky.app/profile/did:plc:s5ffe7xllzt5djlvhvuc2cto/post/3l7uriq6vqq2z?ref_src=embed">[image or embed]</a></p>&mdash; Rbanism (<a href="https://bsky.app/profile/did:plc:s5ffe7xllzt5djlvhvuc2cto?ref_src=embed">@rbanism.bsky.social</a>) <a href="https://bsky.app/profile/did:plc:s5ffe7xllzt5djlvhvuc2cto/post/3l7uriq6vqq2z?ref_src=embed">November 1, 2024 at 9:38 AM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+```
 
 
