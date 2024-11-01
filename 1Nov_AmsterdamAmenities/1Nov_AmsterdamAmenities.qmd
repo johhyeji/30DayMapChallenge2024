@@ -1,13 +1,15 @@
 ---
-title: "#30DMC_8Nov_HDX"
-author: "Clémentine Cottineau-Mugadza"
-date: "2024-10-28"
+title: "#30DMC_1Nov_Points"
+author: "Pietro Bernardini, Claudiu Forgaci"
+date: "2024-10-31"
 format: 
   html: default
   pdf: default
 ---
 
 ## 1 November - Points 
+
+"30DayMapChallenge classic: A map with points. Start the challenge with points. Show individual locations—anything from cities to trees or more abstract concepts. Simple, but a key part of the challenge."
 
 ### 1. Load packages
 
@@ -189,4 +191,9 @@ grid.raster(rbanism_logo,
             width = unit(70, "points"))
 
 ggsave(filename = "output/points.png",width = 6, height = 6, dpi = 300, bg = "white")
+
+
 ```
+
+
+
