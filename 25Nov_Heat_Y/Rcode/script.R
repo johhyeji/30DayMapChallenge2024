@@ -9,7 +9,7 @@ library(grid)
 rbanism_logo <- image_read('https://rbanism.org/assets/imgs/about/vi_l.jpg') # Download our logo
 
 #import shp
-points_geothermal<-st_read("data/Vergunningen_open_bodemenergieopslagsystemenPoint.shp")
+points_geothermal<-st_read("../data/Vergunningen_open_bodemenergieopslagsystemenPoint.shp")
 points_geothermal
 names(points_geothermal)
   #vergund=licensed
@@ -18,7 +18,7 @@ names(points_geothermal)
   #bovenkant=top
   #bron=source
 
-province_utrecht<-st_read("data/province_Utrecth.shp")
+province_utrecht<-st_read("../data/province_Utrecth.shp")
   
 summary(points_geothermal)
 
@@ -49,7 +49,8 @@ ggplot()+
   labs(
     color="temperature",
     title="Geothermal energy",
-    subtitle = "location of the heat storage in Utrecht"
+    subtitle = "location of the heat storage in Utrecht",
+    caption = "Data: National Georegister, Author: Youjin Lee"
   )
 
 #add logo
@@ -59,7 +60,7 @@ grid.raster(rbanism_logo, x = 0.9, y=0.74,  # x and y determine the position of 
 
 #save
 ggsave(
-  filename=here("PNG","plot.png"),
+  filename=here("PNG","Nov_25.png"),
   width = 8,
   height = 8,
   dpi=300,)
